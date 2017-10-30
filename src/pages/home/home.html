@@ -5,6 +5,50 @@
 </ion-header>
 
 <ion-content padding class="homeStyle">
-  <h2>Welcome to Ionic!</h2>
+
+  <ion-grid >
+    <ion-row>
+      <ion-col width-100>
+        <ion-list>
+          <form (ngSubmit)="calculate()">
+            <ion-item>
+              <ion-label fixed>First</ion-label>
+              <ion-input [(ngModel)]="word1" name="word1" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label fixed>Second</ion-label>
+              <ion-input [(ngModel)]="word2" name="word2" type="text"></ion-input>
+            </ion-item>
+            <button ion-button type="submit" block>Go</button>
+
+          </form>
+        </ion-list>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="popularity">
+    <ion-row>
+      <ion-col width-50 offset-25>
+        <p class="loc"><strong>Location: </strong>US-CA</p>
+        <h2><u>General Popularity Score</u></h2>
+        <h2 >{{inputLangs[0].toUpperCase()}}: {{popularity[0]}}</h2>
+        <h2 >{{inputLangs[1].toUpperCase()}}: {{popularity[1]}}</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="cityPopularity">
+      <ion-col width-100>
+       <ion-list *ngFor="let item of cityPopularity">
+         <ion-item>
+           <strong>{{item.geoName}}: {{item.value[0]}}</strong>
+         </ion-item>
+
+       </ion-list>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 
 </ion-content>

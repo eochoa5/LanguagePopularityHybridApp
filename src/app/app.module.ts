@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { GoogleTrendsProvider } from '../providers/google-trends/google-trends';
+import {IonicStorageModule} from '@ionic/storage';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { GoogleTrendsProvider } from '../providers/google-trends/google-trends';
   imports: [
     BrowserModule,
       HttpModule,
+      IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

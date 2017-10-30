@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as googleTrends from '../../../node_modules/google-trends-api/lib/google-trends-api';
+import 'rxjs/add/observable/fromPromise';
+import {Observable} from "rxjs/Observable";
+import {Storage} from '@ionic/storage';
 
 /*
   Generated class for the GoogleTrendsProvider provider.
@@ -12,29 +15,28 @@ import * as googleTrends from '../../../node_modules/google-trends-api/lib/googl
 @Injectable()
 export class GoogleTrendsProvider {
 
-  constructor(public http: Http) {
-    console.log('Hello GoogleTrendsProvider Provider');
 
+  constructor(public http: Http, public storage: Storage) {
 
   }
 
-  getGTrendsData() {
+  getPopularityNumber(input, loc) {
 
-
-
-    googleTrends.interestOverTime({
-      keyword: ['C programming language', 'Java'],
+     return Observable.fromPromise(googleTrends.interestOverTime({
+      keyword: input,
       startTime: new Date(Date.now() - (31536000000)),
-      geo: 'US'
-    }, function (err, results) {
-      if (err) console.log('oh no error!', err);
-      else console.log(results);
-    });
-
-
-
-    console.log("test");
+      geo: loc, category: 31
+    }));
 
   }
+
+    getInterestByRegion(word, loc) {
+
+        return Observable.fromPromise(googleTrends.interestByRegion({
+            keyword: word, startTime: new Date(Date.now() - (31536000000)),
+            geo: loc, category: 31, resolution: 'CITY'
+        }));
+
+    }
 
 }
